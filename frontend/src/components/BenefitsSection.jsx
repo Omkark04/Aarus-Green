@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FaSeedling, FaShieldAlt, FaFlask, FaLeaf, FaChartLine, FaWater } from 'react-icons/fa';
 
 const benefits = [
@@ -74,10 +75,19 @@ const itemVariants = {
 };
 
 export default function BenefitsSection() {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % benefits.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <section className="py-32 w-full flex justify-center" style={{ background: 'linear-gradient(180deg, #fff 0%, #F1F8E9 100%)' }}>
-      <div className="max-w-7xl w-full px-6 sm:px-8 lg:px-10">
-        {/* Scaled Header */}
+    <section className="benefits-section">
+      <div className="container">
+        {/* Header */}
         <motion.div
           className="text-center mb-24"
           initial={{ opacity: 0, y: 30 }}
@@ -85,80 +95,82 @@ export default function BenefitsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <span
-            className="inline-block px-6 py-2.5 rounded-full text-base font-black mb-6 shadow-sm"
-            style={{ background: '#E8F5E9', color: '#2E7D32', border: '1px solid #C8E6C9' }}
-          >
+          <span className="benefit-tag">
             Farmer Benefits
           </span>
-          <h2
-            className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight"
-            style={{ fontFamily: 'Poppins, sans-serif', color: '#1B5E20' }}
-          >
-            Why Farmers <span style={{ color: '#F57C00' }}>Trust Us</span>
+          <h2 className="solutions-title">
+            Why Farmers <span className="span-accent">Trust Us</span>
           </h2>
-          <p className="text-xl text-gray-500 max-w-3xl mx-auto leading-relaxed">
+          <p className="solutions-subtitle">
             Every product is engineered with the farmer in mind — delivering measurable,
             real-world benefits at every stage of the crop cycle.
           </p>
         </motion.div>
 
-        {/* Scaled Benefits Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10"
-        >
-          {benefits.map((b, i) => {
-            const Icon = b.icon;
-            return (
-              <motion.div
-                key={i}
-                variants={itemVariants}
-                whileHover={{ y: -12, boxShadow: '0 30px 60px rgba(0,0,0,0.12)' }}
-                className="bg-white rounded-[2.5rem] overflow-hidden shadow-xl border transition-all duration-300 group min-h-[380px] flex flex-col"
-                style={{ borderColor: '#F0F0F0' }}
-              >
-                {/* Scaled Gradient top bar */}
-                <div
-                  className="h-2.5 w-full"
-                  style={{ background: b.gradient }}
-                />
+        {/* Benefits Grid / Autoslider */}
+        <div className="benefits-container">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid sm-grid-cols-2 lg-grid-cols-3 gap-10 benefits-grid"
+          >
+            {benefits.map((b, i) => {
+              const Icon = b.icon;
+              return (
+                <motion.div
+                  key={i}
+                  variants={itemVariants}
+                  className={`benefit-card ${i === current ? 'mobile-active' : ''}`}
+                >
+                  {/* Gradient top bar */}
+                  <div
+                    className="benefit-gradient-bar"
+                    style={{ background: b.gradient }}
+                  />
 
-                <div className="p-10 flex flex-col flex-1">
-                  {/* Scaled Icon + Stat Row */}
-                  <div className="flex items-start justify-between mb-8">
-                    <div
-                      className="w-20 h-20 rounded-[1.5rem] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300"
-                      style={{ background: b.bg }}
-                    >
-                      <Icon size={36} style={{ color: b.color }} />
-                    </div>
-                    <div className="text-right">
-                      <p
-                        className="text-3xl font-black leading-tight mb-1"
-                        style={{ color: b.color, fontFamily: 'Poppins, sans-serif' }}
+                  <div className="benefit-content">
+                    {/* Icon + Stat Row */}
+                    <div className="benefit-header">
+                      <div
+                        className="benefit-icon-box"
+                        style={{ background: b.bg }}
                       >
-                        {b.stat}
-                      </p>
-                      <p className="text-xs text-gray-400 font-black uppercase tracking-widest">{b.statLabel}</p>
+                        <Icon size={36} style={{ color: b.color }} />
+                      </div>
+                      <div className="benefit-stat-box">
+                        <p
+                          className="benefit-stat-val"
+                          style={{ color: b.color }}
+                        >
+                          {b.stat}
+                        </p>
+                        <p className="benefit-stat-label">{b.statLabel}</p>
+                      </div>
                     </div>
-                  </div>
 
-                  <h4
-                    className="font-black text-xl mb-4"
-                    style={{ fontFamily: 'Poppins, sans-serif', color: '#1A1A1A' }}
-                  >
-                    {b.title}
-                  </h4>
-                  <p className="text-gray-500 text-base leading-relaxed flex-1 opacity-90">{b.desc}</p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+                    <h4 className="benefit-title">
+                      {b.title}
+                    </h4>
+                    <p className="benefit-desc">{b.desc}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+          
+          {/* Mobile Dots Indicators */}
+          <div className="benefits-dots">
+            {benefits.map((_, i) => (
+              <div 
+                key={i} 
+                className={`dot ${i === current ? 'active' : ''}`} 
+                onClick={() => setCurrent(i)}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

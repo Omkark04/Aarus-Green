@@ -13,19 +13,13 @@ const cardVariants = {
 
 export default function ProductCategories() {
   return (
-    <section
-      id="solutions"
-      className="py-32 relative overflow-hidden w-full flex justify-center"
-      style={{ background: 'linear-gradient(180deg, #F1F8E9 0%, #E8F5E9 100%)' }}
-    >
-      {/* Massive Decorative blobs */}
-      <div className="absolute top-0 right-0 w-[40rem] h-[40rem] rounded-full opacity-30 -translate-y-1/2 translate-x-1/3"
-        style={{ background: 'radial-gradient(circle, #A5D6A7, transparent)' }} />
-      <div className="absolute bottom-0 left-0 w-[30rem] h-[30rem] rounded-full opacity-25 translate-y-1/2 -translate-x-1/3"
-        style={{ background: 'radial-gradient(circle, #66BB6A, transparent)' }} />
+    <section id="solutions" className="solutions-section">
+      {/* Decorative blobs */}
+      <div className="solutions-blob-1" />
+      <div className="solutions-blob-2" />
 
-      <div className="relative z-10 max-w-7xl w-full px-6 sm:px-8 lg:px-10">
-        {/* Scaled Header */}
+      <div className="container relative z-10">
+        {/* Header */}
         <motion.div
           className="text-center mb-20"
           initial={{ opacity: 0, y: 30 }}
@@ -33,83 +27,73 @@ export default function ProductCategories() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <span
-            className="inline-block px-6 py-2 rounded-full text-base font-black mb-6 shadow-sm"
-            style={{ background: 'rgba(46,125,50,0.15)', color: '#2E7D32', border: '1px solid rgba(46,125,50,0.25)' }}
-          >
+          <span className="solutions-tag">
             Our Professional Solutions
           </span>
-          <h2
-            className="text-4xl sm:text-5xl lg:text-6xl font-black mb-6 leading-tight"
-            style={{ fontFamily: 'Poppins, sans-serif', color: '#1B5E20' }}
-          >
-            Complete Crop Care <span style={{ color: '#F57C00' }}>Solutions</span>
+          <h2 className="solutions-title">
+            Complete Crop Care <span className="span-accent">Solutions</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="solutions-subtitle">
             From soil health to crop protection, we offer scientifically formulated products
             for every stage of your farming journey.
           </p>
         </motion.div>
 
-        {/* Scaled Category Cards */}
+        {/* Category Cards */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid sm-grid-cols-2 lg-grid-cols-4 gap-8 solutions-grid"
         >
           {productCategories.map((cat, i) => (
             <motion.div
               key={cat.id}
               variants={cardVariants}
-              whileHover={{ y: -15, boxShadow: '0 40px 80px rgba(0,0,0,0.14)' }}
-              className="bg-white rounded-[2.5rem] p-10 shadow-xl cursor-pointer group transition-all duration-300 relative overflow-hidden flex flex-col min-h-[420px]"
+              className="category-card"
             >
               {/* Massive subtle bg watermark */}
               <div
-                className="absolute -bottom-8 -right-8 text-[12rem] opacity-[0.03] select-none pointer-events-none group-hover:scale-110 transition-transform duration-500"
-                style={{ lineHeight: 1 }}
+                className="category-watermark"
+                style={{ color: cat.color }}
               >
                 {cat.icon}
               </div>
 
-              {/* Scaled Number badge */}
+              {/* Number badge */}
               <div
-                className="absolute top-8 right-8 w-12 h-12 rounded-full flex items-center justify-center text-lg font-black text-white shadow-lg"
-                style={{ background: cat.color, opacity: 0.9 }}
+                className="category-number"
+                style={{ background: cat.color }}
               >
                 0{i + 1}
               </div>
 
-              {/* Scaled Icon */}
+              {/* Icon */}
               <div
-                className="w-24 h-24 rounded-3xl flex items-center justify-center text-5xl mb-8 shadow-[0_15px_30px_rgba(0,0,0,0.08)] group-hover:scale-110 transition-transform duration-300"
+                className="category-icon-box"
                 style={{ background: cat.bg }}
               >
                 {cat.icon}
               </div>
 
-              {/* Scaled Title */}
-              <h3
-                className="text-2xl font-black mb-4 pr-10"
-                style={{ fontFamily: 'Poppins, sans-serif', color: '#1A1A1A' }}
-              >
+              {/* Title */}
+              <h3 className="category-title">
                 {cat.title}
               </h3>
 
-              {/* Scaled Desc */}
-              <p className="text-gray-500 text-base leading-relaxed mb-8 flex-1 opacity-90">{cat.desc}</p>
+              {/* Desc */}
+              <p className="category-desc">{cat.desc}</p>
 
               {/* Divider */}
-              <div className="h-px w-full mb-6 opacity-30" style={{ background: cat.color }} />
+              <div className="category-divider" style={{ background: cat.color }} />
 
-              {/* Scaled Link */}
+              {/* Link */}
               <div
-                className="flex items-center gap-3 text-lg font-black group-hover:gap-5 transition-all duration-300"
+                className="category-link"
                 style={{ color: cat.color }}
               >
-                Explore Products <FiArrowRight className="text-xl group-hover:translate-x-2 transition-transform" />
+                Explore Products <FiArrowRight className="category-link-icon" />
               </div>
             </motion.div>
           ))}

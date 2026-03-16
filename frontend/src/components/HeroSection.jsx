@@ -8,206 +8,164 @@ const badges = [
   { icon: <FaFlask />, text: 'Scientifically Proven' },
 ];
 
+const stats = [
+  {
+    icon: <FaSeedling />,
+    value: '19+',
+    label: 'Premium Products',
+    iconBg: 'linear-gradient(135deg, #E8F5E9, #C8E6C9)',
+    iconColor: '#2E7D32',
+    valueColor: '#2E7D32',
+  },
+  {
+    icon: <FaLeaf />,
+    value: '1000+',
+    label: 'Farmers Served',
+    iconBg: 'linear-gradient(135deg, #FFF3E0, #FFE0B2)',
+    iconColor: '#F57C00',
+    valueColor: '#F57C00',
+  },
+];
+
 export default function HeroSection() {
   return (
-    <section
-      id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden w-full py-20"
-      style={{
-        background: 'linear-gradient(135deg, #0A3D0F 0%, #1B5E20 35%, #2E7D32 70%, #388E3C 100%)',
-      }}
-    >
-      {/* Full-bleed BG image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/hero-bg.png')", opacity: 0.22 }}
-      />
+    <section id="home" className="hero-section">
+      {/* Background image */}
+      <div className="hero-bg-image" style={{ backgroundImage: "url('/hero-bg.png')" }} />
 
-      {/* Gradient overlay for depth */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(100deg, rgba(10,61,15,0.92) 0%, rgba(27,94,32,0.65) 55%, rgba(56,142,60,0.15) 100%)',
-        }}
-      />
+      {/* Gradient overlay */}
+      <div className="hero-overlay" />
 
       {/* Decorative glows */}
-      <div className="absolute top-24 right-20 w-[30rem] h-[30rem] rounded-full blur-[100px] opacity-20"
-        style={{ background: '#66BB6A' }} />
-      <div className="absolute bottom-10 left-10 w-[25rem] h-[25rem] rounded-full blur-[100px] opacity-15"
-        style={{ background: '#A5D6A7' }} />
+      <div className="glow glow-1" />
+      <div className="glow glow-2" />
 
-      <div className="relative z-10 max-w-7xl w-full mx-auto px-6 sm:px-8 lg:px-10 pt-32 pb-24">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+      <div className="container hero-container">
+        <div className="hero-grid">
           {/* ── Left: Content ── */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, ease: 'easeOut' }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="hero-content"
           >
             {/* Tag */}
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-3 px-6 py-3 rounded-full text-base font-bold mb-10 shadow-2xl"
-              style={{
-                background: 'rgba(255,160,0,0.2)',
-                color: '#FFC947',
-                border: '1px solid rgba(255,160,0,0.4)',
-                backdropFilter: 'blur(12px)',
-              }}
+              className="hero-tag"
             >
-              <FaLeaf className="text-sm" />
+              <FaLeaf className="hero-tag-icon" />
               India's Trusted Agrochemical Brand
             </motion.div>
 
-            <h1
-              className="text-6xl sm:text-7xl lg:text-[5.5rem] font-black text-white leading-[1.05] mb-8"
-              style={{ fontFamily: 'Poppins, sans-serif', letterSpacing: '-2px' }}
+            {/* Heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.7 }}
+              className="hero-title"
             >
               Empowering
               <br />
-              <span style={{
-                background: 'linear-gradient(90deg, #FFC947, #FFA000)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}>
-                Agriculture
-              </span>
+              <span className="hero-title-accent">Agriculture</span>
               <br />
               for India
-            </h1>
+            </motion.h1>
 
-            <p className="text-xl sm:text-2xl text-green-50 mb-12 leading-relaxed max-w-xl opacity-95">
-              Advanced agrochemicals and fertilizers engineered to maximize crop yield,
-              protect your harvest, and sustain the future of Indian farming.
-            </p>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="hero-description"
+            >
+              Advanced agrochemicals and fertilizers engineered to maximize crop
+              yield, protect your harvest, and sustain the future of Indian farming.
+            </motion.p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-wrap gap-6 mb-16">
-              <motion.a
-                href="#products"
-                whileHover={{ scale: 1.05, boxShadow: '0 20px 40px rgba(245,124,0,0.5)' }}
-                whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-3 px-10 py-5 rounded-full font-black text-white shadow-2xl transition-all text-lg"
-                style={{
-                  background: 'linear-gradient(135deg, #E65100, #FFA000)',
-                  fontFamily: 'Poppins, sans-serif',
-                }}
-              >
-                Explore Products <FiArrowRight className="text-xl" />
-              </motion.a>
-              <motion.a
-                href="#contact"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-                className="inline-flex items-center gap-3 px-10 py-5 rounded-full font-black transition-all border-2 text-lg shadow-xl"
-                style={{
-                  color: '#fff',
-                  borderColor: 'rgba(255,255,255,0.4)',
-                  background: 'rgba(255,255,255,0.12)',
-                  fontFamily: 'Poppins, sans-serif',
-                  backdropFilter: 'blur(15px)',
-                }}
-              >
-                <FiPhone className="text-xl" /> Contact Us
-              </motion.a>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="hero-ctas"
+            >
+              <a href="#products" className="btn-primary hero-btn">
+                Explore Products <FiArrowRight />
+              </a>
+              <a href="#contact" className="btn-secondary hero-btn">
+                <FiPhone /> Contact Us
+              </a>
+            </motion.div>
 
             {/* Trust Badges */}
-            <div className="flex flex-wrap gap-4">
+            <div className="hero-badges">
               {badges.map((b, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + i * 0.12 }}
-                  className="flex items-center gap-3 px-6 py-3.5 rounded-2xl text-base font-bold shadow-lg"
-                  style={{
-                    background: 'rgba(255,255,255,0.12)',
-                    border: '1px solid rgba(255,255,255,0.2)',
-                    color: '#FFF',
-                    backdropFilter: 'blur(10px)',
-                  }}
+                  transition={{ delay: 0.6 + i * 0.1 }}
+                  className="hero-badge"
                 >
-                  <span className="text-xl" style={{ color: '#69F0AE' }}>{b.icon}</span>
+                  <span className="hero-badge-icon">{b.icon}</span>
                   {b.text}
                 </motion.div>
               ))}
             </div>
           </motion.div>
 
-          {/* ── Right: Image Card ── */}
+          {/* ── Right: Image + Stats ── */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, x: 40 }}
+            initial={{ opacity: 0, scale: 0.93, x: 30 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="relative hidden lg:block"
+            transition={{ duration: 0.9, delay: 0.25 }}
+            className="hero-visual"
           >
-            {/* Glow ring */}
-            <div
-              className="absolute -inset-8 rounded-[3.5rem] opacity-30 blur-[60px]"
-              style={{ background: 'linear-gradient(135deg, #A5D6A7, #66BB6A)' }}
-            />
-
-            {/* Main image */}
-            <div className="relative rounded-[3rem] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.5)] border-4"
-              style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+            {/* Image card */}
+            <div className="hero-image-card">
               <img
                 src="/hero-bg.png"
                 alt="Lush green farmland in India"
-                className="w-full h-[580px] object-cover scale-110 hover:scale-100 transition-transform duration-1000"
+                className="hero-img"
               />
-              {/* Image overlay gradient */}
-              <div className="absolute inset-0"
-                style={{ background: 'linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.5) 100%)' }} />
-              <p className="absolute bottom-8 left-8 text-white text-lg font-black opacity-90 tracking-wide">
+              {/* Bottom overlay */}
+              <div className="hero-img-overlay" />
+              <p className="hero-img-caption">
                 📍 Ankleshwar, Gujarat — Serving India
               </p>
             </div>
 
-            {/* Floating stat cards - Scaled Up */}
-            <motion.div
-              animate={{ y: [0, -15, 0] }}
-              transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
-              className="absolute -bottom-10 -left-12 z-20 px-10 py-7 rounded-[2rem] shadow-[0_30px_60px_rgba(0,0,0,0.2)] flex items-center gap-6"
-              style={{ background: '#fff' }}
-            >
-              <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-inner"
-                style={{ background: 'linear-gradient(135deg, #E8F5E9, #C8E6C9)' }}>
-                <FaSeedling style={{ color: '#2E7D32', fontSize: 32 }} />
-              </div>
-              <div>
-                <p className="text-4xl font-black leading-none mb-1" style={{ color: '#2E7D32', fontFamily: 'Poppins, sans-serif' }}>19+</p>
-                <p className="text-sm text-gray-400 font-bold uppercase tracking-widest">Premium Products</p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              animate={{ y: [0, 15, 0] }}
-              transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut' }}
-              className="absolute -top-10 -right-10 z-20 px-10 py-7 rounded-[2rem] shadow-[0_30px_60px_rgba(0,0,0,0.2)] flex items-center gap-6"
-              style={{ background: '#fff' }}
-            >
-              <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-inner"
-                style={{ background: 'linear-gradient(135deg, #FFF3E0, #FFE0B2)' }}>
-                <FaLeaf style={{ color: '#F57C00', fontSize: 32 }} />
-              </div>
-              <div>
-                <p className="text-4xl font-black leading-none mb-1" style={{ color: '#F57C00', fontFamily: 'Poppins, sans-serif' }}>1000+</p>
-                <p className="text-sm text-gray-400 font-bold uppercase tracking-widest">Farmers Served</p>
-              </div>
-            </motion.div>
+            {/* Stat cards */}
+            <div className="hero-stats-grid">
+              {stats.map((s, i) => (
+                <motion.div
+                  key={i}
+                  animate={{ y: [0, i % 2 === 0 ? -8 : 8, 0] }}
+                  transition={{ repeat: Infinity, duration: 4 + i * 0.5, ease: 'easeInOut' }}
+                  className="hero-stat-card"
+                >
+                  <div className="hero-stat-icon-wrap" style={{ background: s.iconBg }}>
+                    <span style={{ color: s.iconColor }}>{s.icon}</span>
+                  </div>
+                  <div className="hero-stat-info">
+                    <p className="hero-stat-value" style={{ color: s.valueColor }}>
+                      {s.value}
+                    </p>
+                    <p className="hero-stat-label">{s.label}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </div>
 
-      {/* Bottom SVG wave - Adjusted for scale */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path d="M0 120L1440 120L1440 45C1200 120 960 15 720 45C480 75 240 5 0 45L0 120Z" fill="white" />
+      {/* Bottom wave */}
+      <div className="hero-wave">
+        <svg viewBox="0 0 1440 90" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0 90L1440 90L1440 35C1200 90 960 10 720 35C480 60 240 5 0 35L0 90Z" fill="white" />
         </svg>
       </div>
     </section>

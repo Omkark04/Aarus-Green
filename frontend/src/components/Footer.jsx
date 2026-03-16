@@ -1,146 +1,144 @@
 import { motion } from 'framer-motion';
-import { FaFacebook, FaInstagram, FaWhatsapp, FaLinkedin, FaYoutube } from 'react-icons/fa';
-import { FiMail, FiPhone, FiMapPin, FiExternalLink } from 'react-icons/fi';
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedinIn,
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaEnvelope,
+} from 'react-icons/fa';
+import { FiClock, FiShield } from 'react-icons/fi';
 
-const footerLinks = [
-  { 
-    title: 'Quick Navigation', 
-    links: [
-      { name: 'Home', href: '#home' }, 
-      { name: 'About Company', href: '#about' }, 
-      { name: 'Product Catalog', href: '#products' }, 
-      { name: 'Crop Solutions', href: '#solutions' }, 
-      { name: 'Contact Us', href: '#contact' }
-    ] 
-  },
-  { 
-    title: 'Product Categories', 
-    links: [
-      { name: 'Plant Growth Promoters', href: '#products' }, 
-      { name: 'Crop Protection Solutions', href: '#products' }, 
-      { name: 'Advanced Nutrients', href: '#products' }, 
-      { name: 'Soil Health Vitalizers', href: '#products' },
-      { name: 'Seed Treatment', href: '#products' }
-    ] 
-  },
+const socialLinks = [
+  { icon: <FaFacebookF />, href: '#', label: 'Facebook' },
+  { icon: <FaTwitter />, href: '#', label: 'Twitter' },
+  { icon: <FaInstagram />, href: '#', label: 'Instagram' },
+  { icon: <FaLinkedinIn />, href: '#', label: 'LinkedIn' },
+];
+
+const quickLinks = [
+  { name: 'Home', href: '#home' },
+  { name: 'About Us', href: '#about' },
+  { name: 'Our Products', href: '#products' },
+  { name: 'Farmer Solutions', href: '#solutions' },
+  { name: 'Contact Us', href: '#contact' },
+];
+
+const productLinks = [
+  { name: 'Crop Protection', href: '#products' },
+  { name: 'Growth Promoters', href: '#products' },
+  { name: 'Nutrient Solutions', href: '#products' },
+  { name: 'Soil Health', href: '#products' },
+  { name: 'Organic Series', href: '#products' },
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0A260D] text-white pt-32 pb-16 w-full overflow-hidden flex justify-center">
-      <div className="max-w-7xl w-full px-6 sm:px-8 lg:px-10">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-20 mb-24">
-          {/* Brand - Scaled Up */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center gap-4 mb-10">
-              <div className="w-14 h-14 bg-green-600 rounded-2xl flex items-center justify-center font-black text-2xl shadow-xl">A</div>
-              <div>
-                <span className="text-3xl font-black block leading-none tracking-tight">Aarus Greentech</span>
-                <span className="text-xs font-black block tracking-[0.4em] text-orange-400 mt-1 uppercase">LLP</span>
-              </div>
-            </div>
-            <p className="text-green-100/70 text-lg leading-relaxed mb-10 opacity-80 font-medium">
-              Empowering Indian farmers with innovative, science-backed agrochemical solutions
-              designed for a sustainable and more productive agricultural future across the nation.
+    <footer className="footer-section">
+      <div className="container footer-inner-container">
+        <div className="footer-grid">
+          {/* Brand Info */}
+          <div className="footer-column">
+            <h3 className="footer-brand-title">
+              Aarus <span>Greentech</span>
+            </h3>
+            <p className="footer-brand-desc">
+              Dedicated to agricultural innovation and excellence. Empowering
+              farmers across India with world-class agrochemical solutions
+              since years.
             </p>
-            {/* Scaled Socials */}
-            <div className="flex gap-5">
-              {[
-                { icon: <FaFacebook />, color: '#1877F2' },
-                { icon: <FaWhatsapp />, color: '#25D366' },
-                { icon: <FaInstagram />, color: '#E4405F' },
-                { icon: <FaLinkedin />, color: '#0A66C2' },
-                { icon: <FaYoutube />, color: '#FF0000' }
-              ].map((social, i) => (
-                <motion.a 
+            <div className="footer-socials">
+              {socialLinks.map((social, i) => (
+                <a
                   key={i}
-                  whileHover={{ y: -8, scale: 1.1 }}
-                  href="#" 
-                  className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-xl hover:text-white transition-all border border-white/10 hover:border-white/30"
+                  href={social.href}
+                  className="footer-social-link"
+                  aria-label={social.label}
                 >
                   {social.icon}
-                </motion.a>
+                </a>
               ))}
             </div>
           </div>
 
-          {/* Links - Scaled Up */}
-          {footerLinks.map((col) => (
-            <div key={col.title}>
-              <h4 className="font-black text-orange-400 mb-10 uppercase tracking-[0.2em] text-sm flex items-center gap-2">
-                <div className="w-6 h-1 bg-orange-400/30 rounded-full" />
-                {col.title}
-              </h4>
-              <ul className="space-y-6">
-                {col.links.map((link) => (
-                  <li key={link.name}>
-                    <a 
-                      href={link.href} 
-                      className="text-green-100/60 hover:text-white text-lg font-bold transition-all flex items-center gap-2 group"
-                    >
-                      <span className="w-0 h-[2px] bg-green-500 transition-all group-hover:w-4" />
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+          {/* Quick Links */}
+          <div className="footer-column">
+            <h4 className="footer-heading">Quick Navigation</h4>
+            <div className="footer-links-list">
+              {quickLinks.map((link) => (
+                <a key={link.name} href={link.href} className="footer-link">
+                  {link.name}
+                </a>
+              ))}
             </div>
-          ))}
+          </div>
 
-          {/* Contact - Scaled Up */}
-          <div>
-            <h4 className="font-black text-orange-400 mb-10 uppercase tracking-[0.2em] text-sm flex items-center gap-2">
-              <div className="w-6 h-1 bg-orange-400/30 rounded-full" />
-              Get In Touch
-            </h4>
-            <ul className="space-y-8">
-              <li className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-xl text-orange-400 border border-white/10 shrink-0">
-                  <FiMapPin />
-                </div>
-                <div>
-                  <p className="text-white font-black text-lg mb-1">Our Location</p>
-                  <span className="text-green-100/60 text-base font-medium leading-snug block italic">Ankleshwar, Gujarat, <br/>India - 393002</span>
-                </div>
-              </li>
-              <li className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-xl text-orange-400 border border-white/10 shrink-0">
-                  <FiPhone />
-                </div>
-                <div>
-                  <p className="text-white font-black text-lg mb-1">Phone Support</p>
-                  <a href="tel:+919146373132" className="text-green-100/60 hover:text-white text-base font-bold transition-all">+91 91463 73132</a>
-                </div>
-              </li>
-              <li className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-xl text-orange-400 border border-white/10 shrink-0">
-                  <FiMail />
-                </div>
-                <div>
-                  <p className="text-white font-black text-lg mb-1">Email Inquiry</p>
-                  <a href="mailto:aarusgreentech@gmail.com" className="text-green-100/60 hover:text-white text-base font-bold transition-all">aarusgreentech@gmail.com</a>
-                </div>
-              </li>
-            </ul>
+          {/* Categories */}
+          <div className="footer-column">
+            <h4 className="footer-heading">Our Range</h4>
+            <div className="footer-links-list">
+              {productLinks.map((link) => (
+                <a key={link.name} href={link.href} className="footer-link">
+                  {link.name}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Contact Info */}
+          <div className="footer-column">
+            <h4 className="footer-heading">Get in Touch</h4>
+            <div className="footer-contact-item">
+              <div className="footer-contact-icon">
+                <FaMapMarkerAlt />
+              </div>
+              <div className="footer-contact-text">
+                <span className="footer-contact-label">Location</span>
+                Sector-D, Ankleshwar,
+                <br />
+                Gujarat, India 393002
+              </div>
+            </div>
+            <div className="footer-contact-item">
+              <div className="footer-contact-icon">
+                <FaPhoneAlt />
+              </div>
+              <div className="footer-contact-text">
+                <span className="footer-contact-label">Call Support</span>
+                +91 98765 43210
+                <br />
+                +91 02646 123456
+              </div>
+            </div>
+            <div className="footer-contact-item">
+              <div className="footer-contact-icon">
+                <FaEnvelope />
+              </div>
+              <div className="footer-contact-text">
+                <span className="footer-contact-label">Email Us</span>
+                info@aarusgreentech.com
+                <br />
+                support@aarus.in
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Bottom bar - Scaled Up */}
-        <div className="pt-16 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex flex-col items-center md:items-start gap-2">
-            <p className="text-green-100/30 text-sm font-bold tracking-widest uppercase mb-1">© 2024 Aarus Greentech LLP</p>
-            <p className="text-green-100/20 text-xs font-medium">Excellence in Agricultural Innovation & Distribution License #GJ-3920</p>
-          </div>
-          
-          <div className="flex items-center gap-10">
-            <p className="text-green-100/40 text-sm font-black flex items-center gap-2">
-              Made with <span className="text-green-500 animate-pulse text-xl">🌱</span> for Indian Farmers
+        {/* Bottom Bar */}
+        <div className="footer-bottom">
+          <div className="footer-bottom-flex">
+            <p className="footer-copyright">
+              © {new Date().getFullYear()} Aarus Greentech LLP. All rights
+              reserved.
             </p>
-            {/* Extra footer badges */}
-            <div className="hidden sm:flex items-center gap-4 px-6 py-3 rounded-2xl bg-white/5 border border-white/10 text-xs font-black text-green-100/40 uppercase tracking-widest">
-              <span>ISO Certified</span>
-              <div className="w-1 h-1 rounded-full bg-white/20" />
-              <span>Made in India</span>
+            <div className="footer-badges">
+              <div className="footer-badge">
+                <FiShield /> <span>ISI Certified</span>
+              </div>
+              <div className="footer-badge">
+                <FiClock /> <span>24/7 Support</span>
+              </div>
             </div>
           </div>
         </div>

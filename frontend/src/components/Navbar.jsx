@@ -1,18 +1,40 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiMenu, FiX } from 'react-icons/fi';
+import { FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
+import logo from '../assets/Logo.png';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
   { name: 'About', href: '#about' },
-  { name: 'Products', href: '#products' },
-  { name: 'Solutions', href: '#solutions' },
+  { 
+    name: 'Products', 
+    href: '#products',
+    dropdown: [
+      { name: 'All Products', href: '#products' },
+      { name: 'Insecticides', href: '#insecticides' },
+      { name: 'Herbicides', href: '#herbicides' },
+      { name: 'Fungicides', href: '#fungicides' },
+      { name: 'Plant Growth Regulators', href: '#pgr' },
+      { name: 'Bio Sens', href: '#bio-sens' },
+    ]
+  },
+  { 
+    name: 'Solutions', 
+    href: '#solutions',
+    dropdown: [
+      { name: 'Crop Solutions', href: '#crop-solutions' },
+      { name: 'Soil Health', href: '#soil-health' },
+      { name: 'Sustainability', href: '#sustainability' },
+      { name: 'Integrated Pest Management', href: '#ipm' },
+    ]
+  },
   { name: 'Contact', href: '#contact' },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,44 +45,62 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 w-full flex justify-center ${
-        scrolled ? 'bg-white shadow-xl py-4' : 'bg-transparent py-7'
-      }`}
-    >
-      <div className="max-w-7xl w-full mx-auto px-6 sm:px-8 lg:px-10 flex justify-between items-center">
+    <nav className={`nav-standard ${scrolled ? 'nav-scrolled' : 'nav-transparent'}`}>
+      <div className="container flex justify-between items-center">
         {/* Logo */}
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 bg-green-600 rounded-2xl flex items-center justify-center text-white font-bold text-2xl shadow-lg">
-            A
+        <a href="#home" className="flex items-center gap-3 shrink-0">
+          <div className="nav-logo-box">
+            <img src={logo} alt="Aarus Greentech Logo" className="nav-logo-img" />
           </div>
-          <div>
-            <span className={`text-2xl font-extrabold block leading-none tracking-tight ${scrolled ? 'text-green-800' : 'text-white'}`}>
-              Aarus Greentech
-            </span>
-            <span className={`text-xs font-black block tracking-[0.3em] ${scrolled ? 'text-orange-600' : 'text-orange-400'}`}>
-              LLP
-            </span>
-          </div>
-        </div>
+        </a>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-10">
+        <div className="md-flex items-center gap-8">
           {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`text-base font-bold transition-all relative group ${
-                scrolled ? 'text-gray-700 hover:text-green-600' : 'text-white/90 hover:text-white'
-              }`}
+            <div 
+              key={link.name} 
+              className="nav-item-wrap"
+              onMouseEnter={() => link.dropdown && setActiveDropdown(link.name)}
+              onMouseLeave={() => setActiveDropdown(null)}
             >
-              {link.name}
-              <span className="absolute -bottom-2 left-0 w-0 h-1 bg-current rounded-full transition-all duration-300 group-hover:w-full" />
-            </a>
+              <a
+                href={link.href}
+                className={`nav-link ${scrolled ? 'nav-link-scrolled' : 'nav-link-transparent'}`}
+              >
+                {link.name}
+                {link.dropdown && <FiChevronDown className="nav-caret" />}
+                <span className="nav-link-line" />
+              </a>
+
+              {/* Dropdown Menu */}
+              <AnimatePresence>
+                {link.dropdown && activeDropdown === link.name && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="nav-dropdown"
+                  >
+                    <div className="nav-dropdown-inner">
+                      {link.dropdown.map((sub) => (
+                        <a key={sub.name} href={sub.href} className="nav-dropdown-item">
+                          {sub.name}
+                        </a>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           ))}
           <a
             href="#contact"
-            className="px-8 py-3.5 rounded-full bg-green-600 text-white text-base font-black hover:bg-green-700 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 active:scale-95"
+            className={`btn-super px-6 py-2.5 text-sm font-bold transition-all shadow-md hover-translate-y active:scale-95 ${
+              scrolled
+                ? 'bg-green-600 text-white shadow-xl'
+                : 'bg-white-15 text-white border-white-30'
+            }`}
           >
             Get In Touch
           </a>
@@ -68,10 +108,13 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className={`md:hidden text-3xl p-2 rounded-xl border-2 ${scrolled ? 'text-gray-800 border-gray-100' : 'text-white border-white/20'}`}
+          className={`hidden-show-md p-2 rounded-lg transition-all ${
+            scrolled ? 'text-gray-800' : 'text-white'
+          }`}
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle menu"
         >
-          {isMenuOpen ? <FiX /> : <FiMenu />}
+          {isMenuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
         </button>
       </div>
 
@@ -79,26 +122,43 @@ export default function Navbar() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: -20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: -20 }}
-            className="absolute top-full left-0 right-0 md:hidden bg-white shadow-2xl overflow-hidden rounded-b-[2rem] border-t"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="nav-mobile-menu"
           >
-            <div className="flex flex-col p-8 gap-6">
+            <div className="flex flex-col py-2">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className="text-xl font-bold text-gray-800 hover:text-green-600 transition-colors border-b border-gray-50 pb-2"
-                >
-                  {link.name}
-                </a>
+                <div key={link.name}>
+                  <a
+                    href={link.href}
+                    onClick={() => !link.dropdown && setIsMenuOpen(false)}
+                    className="nav-mobile-link"
+                  >
+                    {link.name}
+                  </a>
+                  {link.dropdown && (
+                    <div className="bg-gray-50 py-2">
+                      {link.dropdown.map((sub) => (
+                        <a
+                          key={sub.name}
+                          href={sub.href}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="nav-mobile-link"
+                          style={{ paddingLeft: '2.5rem', fontSize: '0.875rem', opacity: 0.8 }}
+                        >
+                          {sub.name}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
               <a
                 href="#contact"
                 onClick={() => setIsMenuOpen(false)}
-                className="w-full text-center py-5 bg-green-600 text-white rounded-2xl font-black text-lg shadow-lg"
+                className="nav-mobile-btn"
               >
                 Get In Touch
               </a>
