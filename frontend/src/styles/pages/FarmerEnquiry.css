@@ -1,0 +1,23 @@
+/* =========================================
+   FARMER ENQUIRY PAGE
+   ========================================= */
+.farmer-advice-grid {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.farmer-advice-card {
+  background: var(--white);
+  padding: 3rem;
+  border-radius: 3rem;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--gray-100);
+}
+
+.farmer-form-box {
+  background: linear-gradient(135deg, #1B5E20, #2E7D32);
+  border-radius: 4rem;
+  padding: 6rem;
+  color: var(--white);
+}

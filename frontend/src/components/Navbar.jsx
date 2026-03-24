@@ -1,116 +1,119 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
 import { FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
-import logo from '../assets/Logo.png';
+import '../styles/components/Navbar.css';
+import GoogleTranslate from './GoogleTranslate';
+
 
 const navLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
+  { name: 'Home', to: '/' },
+  { name: 'About', to: '/about' },
   { 
     name: 'Products', 
-    href: '#products',
+    to: '/products',
     dropdown: [
-      { name: 'All Products', href: '#products' },
-      { name: 'Insecticides', href: '#insecticides' },
-      { name: 'Herbicides', href: '#herbicides' },
-      { name: 'Fungicides', href: '#fungicides' },
-      { name: 'Plant Growth Regulators', href: '#pgr' },
-      { name: 'Bio Sens', href: '#bio-sens' },
+      { name: 'Plant Growth Promoter', to: '/products?category=Plant%20Growth%20Promoter' },
+      { name: 'Crop Protection', to: '/products?category=Crop%20Protection' },
+      { name: 'Nutrient Solutions', to: '/products?category=Nutrient%20Solutions' },
+      { name: 'Soil Health', to: '/products?category=Soil%20Health' },
     ]
   },
-  { 
-    name: 'Solutions', 
-    href: '#solutions',
+  { name: 'Blog', to: '/blog' },
+  { name: 'Gallery', to: '/gallery' },
+  { name: 'Privacy Policy', to: '/privacy-policy' },
+  {
+    name: 'Contact Us',
+    to: '/contact',
     dropdown: [
-      { name: 'Crop Solutions', href: '#crop-solutions' },
-      { name: 'Soil Health', href: '#soil-health' },
-      { name: 'Sustainability', href: '#sustainability' },
-      { name: 'Integrated Pest Management', href: '#ipm' },
-    ]
+      { name: 'Farmer Inquiry', to: '/farmer-enquiry' },
+      { name: 'Distributor Inquiry', to: '/distributor-enquiry' },
+    ],
   },
-  { name: 'Contact', href: '#contact' },
 ];
+
+import logo from '../assets/Logo.png';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
+
   return (
-    <nav className={`nav-standard ${scrolled ? 'nav-scrolled' : 'nav-transparent'}`}>
+    <nav className={`nav-standard ${scrolled ? 'nav-scrolled' : 'shadow-sm'}`} style={{ backgroundColor: '#ffffff' }}>
       <div className="container flex justify-between items-center">
         {/* Logo */}
-        <a href="#home" className="flex items-center gap-3 shrink-0">
-          <div className="nav-logo-box">
-            <img src={logo} alt="Aarus Greentech Logo" className="nav-logo-img" />
-          </div>
-        </a>
+        <Link to="/" className="flex items-center gap-3 shrink-0" onClick={() => window.scrollTo(0, 0)}>
+          <img src={logo} alt="Aarus Greentech Logo" style={{ height: '5.5rem', width: 'auto' }} />
+        </Link>
 
         {/* Desktop Links */}
-        <div className="md-flex items-center gap-8">
-          {navLinks.map((link) => (
-            <div 
-              key={link.name} 
-              className="nav-item-wrap"
-              onMouseEnter={() => link.dropdown && setActiveDropdown(link.name)}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <a
-                href={link.href}
-                className={`nav-link ${scrolled ? 'nav-link-scrolled' : 'nav-link-transparent'}`}
+        <div className="hidden-md md-flex items-center gap-8">
+          <ul className="flex items-center gap-6">
+            {navLinks.map((link) => (
+              <li
+                key={link.name}
+                className="relative"
+                onMouseEnter={() => link.dropdown && setActiveDropdown(link.name)}
+                onMouseLeave={() => setActiveDropdown(null)}
               >
-                {link.name}
-                {link.dropdown && <FiChevronDown className="nav-caret" />}
-                <span className="nav-link-line" />
-              </a>
-
-              {/* Dropdown Menu */}
-              <AnimatePresence>
-                {link.dropdown && activeDropdown === link.name && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className="nav-dropdown"
+                {link.dropdown ? (
+                  <Link
+                    to={link.to}
+                    className={`nav-link flex items-center gap-1 cursor-pointer ${
+                      location.pathname.startsWith(link.to) ? 'text-green-600 font-bold' : 'text-gray-800 font-semibold'
+                    }`}
                   >
-                    <div className="nav-dropdown-inner">
-                      {link.dropdown.map((sub) => (
-                        <a key={sub.name} href={sub.href} className="nav-dropdown-item">
-                          {sub.name}
-                        </a>
-                      ))}
-                    </div>
-                  </motion.div>
+                    {link.name} <FiChevronDown />
+                  </Link>
+                ) : (
+                  <Link
+                    to={link.to}
+                    className={`nav-link flex items-center gap-1 ${location.pathname === link.to ? 'text-green-600 font-bold' : 'text-gray-800 font-semibold'}`}
+                  >
+                    {link.name}
+                  </Link>
                 )}
-              </AnimatePresence>
-            </div>
-          ))}
-          <a
-            href="#contact"
-            className={`btn-super px-6 py-2.5 text-sm font-bold transition-all shadow-md hover-translate-y active:scale-95 ${
-              scrolled
-                ? 'bg-green-600 text-white shadow-xl'
-                : 'bg-white-15 text-white border-white-30'
-            }`}
-          >
-            Get In Touch
-          </a>
+
+                <AnimatePresence>
+                  {link.dropdown && activeDropdown === link.name && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="nav-dropdown"
+                    >
+                      <div className="nav-dropdown-inner">
+                        {link.dropdown.map((sub) => (
+                          <Link key={sub.name} to={sub.to} className="nav-dropdown-item">
+                            {sub.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </li>
+            ))}
+          </ul>
+          <GoogleTranslate />
         </div>
 
         {/* Mobile Toggle */}
         <button
-          className={`hidden-show-md p-2 rounded-lg transition-all ${
-            scrolled ? 'text-gray-800' : 'text-white'
-          }`}
+          className="hidden-show-md p-2 rounded-lg text-gray-800"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
         >
@@ -130,38 +133,31 @@ export default function Navbar() {
           >
             <div className="flex flex-col py-2">
               {navLinks.map((link) => (
-                <div key={link.name}>
-                  <a
-                    href={link.href}
+                <div key={link.name} className="flex flex-col">
+                  <Link
+                    to={link.to}
                     onClick={() => !link.dropdown && setIsMenuOpen(false)}
-                    className="nav-mobile-link"
+                    className="nav-mobile-link text-gray-800"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                   {link.dropdown && (
                     <div className="bg-gray-50 py-2">
                       {link.dropdown.map((sub) => (
-                        <a
+                        <Link
                           key={sub.name}
-                          href={sub.href}
+                          to={sub.to}
                           onClick={() => setIsMenuOpen(false)}
-                          className="nav-mobile-link"
-                          style={{ paddingLeft: '2.5rem', fontSize: '0.875rem', opacity: 0.8 }}
+                          className="nav-mobile-link text-gray-600 block pl-8"
+                          style={{ fontSize: '0.875rem' }}
                         >
                           {sub.name}
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   )}
                 </div>
               ))}
-              <a
-                href="#contact"
-                onClick={() => setIsMenuOpen(false)}
-                className="nav-mobile-btn"
-              >
-                Get In Touch
-              </a>
             </div>
           </motion.div>
         )}

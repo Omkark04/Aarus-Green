@@ -1,0 +1,128 @@
+/* =========================================
+   FLOATING BUTTONS
+   ========================================= */
+.floating-btns {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 999;
+}
+
+.float-btn {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--white);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.float-btn-label {
+  position: absolute;
+  right: calc(100% + 1rem);
+  background: var(--white);
+  color: #333;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.float-btn:hover .float-btn-label { opacity: 1; }
+
+.float-btn-whatsapp          { background: #25D366; }
+.float-btn-whatsapp:hover    { background: #128C7E; }
+.float-btn-contact           { background: var(--green-primary); }
+.float-btn-contact:hover     { background: var(--green-dark); }
+
+/* Floating contact card */
+.float-contact-card {
+  position: absolute;
+  bottom: 8.5rem;
+  right: 0;
+  width: 280px;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  border: 1px solid var(--gray-100);
+}
+
+.float-contact-header {
+  background: var(--green-primary);
+  color: var(--white);
+  padding: 1rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.float-close-btn {
+  color: var(--white);
+  background: rgba(0, 0, 0, 0.1);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.float-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--gray-50);
+  transition: background 0.2s;
+}
+
+.float-contact-row:last-child  { border-bottom: none; }
+.float-contact-row:hover       { background: var(--gray-50); }
+
+.float-contact-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--white);
+}
+
+.float-icon-phone { background: var(--accent-orange); }
+.float-icon-email { background: var(--green-secondary); }
+
+.float-contact-type {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.float-contact-value {
+  font-weight: 700;
+  color: var(--gray-800);
+  font-size: 0.95rem;
+}

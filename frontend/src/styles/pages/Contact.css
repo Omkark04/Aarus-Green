@@ -1,0 +1,42 @@
+/* =========================================
+   CONTACT PAGE
+   ========================================= */
+.contact-page {
+  background: var(--white);
+}
+
+.map-container {
+  height: 500px;
+  width: 100%;
+  filter: grayscale(1) contrast(1.2) opacity(0.8);
+  transition: all 0.5s ease;
+}
+
+.map-container:hover {
+  filter: grayscale(0) contrast(1) opacity(1);
+}
+
+.contact-card-info {
+  background: var(--gray-50);
+  border-radius: 2rem;
+  padding: 3rem;
+  border: 1px solid var(--gray-100);
+}
+
+.contact-method {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+}
+
+.contact-icon-wrap {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: var(--shadow-md);
+}

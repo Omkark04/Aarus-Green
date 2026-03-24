@@ -1,175 +1,97 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaSeedling, FaShieldAlt, FaFlask, FaLeaf, FaChartLine, FaWater } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import { FiCheck, FiArrowRight, FiShield, FiTrendingUp, FiGlobe, FiUsers } from 'react-icons/fi';
+import { FaShieldAlt, FaLeaf, FaMicroscope, FaTractor, FaStar, FaShieldAlt as FaShield } from 'react-icons/fa';
+import '../styles/components/BenefitsSection.css';
+
 
 const benefits = [
   {
-    icon: FaChartLine,
-    title: 'Higher Crop Yield',
-    desc: 'Proven formulas that boost harvest volume and productivity by up to 30% across all major crops.',
-    color: '#2E7D32',
-    gradient: 'linear-gradient(135deg, #2E7D32, #4CAF50)',
-    bg: '#E8F5E9',
-    stat: 'Up to 30%',
-    statLabel: 'yield increase',
-  },
-  {
-    icon: FaSeedling,
-    title: 'Stronger Plant Growth',
-    desc: 'Advanced growth promoters stimulate robust root development and accelerate plant maturation.',
+    icon: <FaShield />,
+    title: 'Advanced R&D',
+    desc: 'Our research team continuously innovates to bring the most effective agrochemical formulations to market.',
     color: '#1565C0',
-    gradient: 'linear-gradient(135deg, #1565C0, #42A5F5)',
     bg: '#E3F2FD',
-    stat: '2x',
-    statLabel: 'root strength',
   },
   {
-    icon: FaShieldAlt,
-    title: 'Disease Resistance',
-    desc: 'Multi-action protection formulas that shield crops from fungal, bacterial, and pest attacks.',
-    color: '#B71C1C',
-    gradient: 'linear-gradient(135deg, #B71C1C, #EF5350)',
-    bg: '#FFEBEE',
-    stat: '95%',
-    statLabel: 'protection rate',
+    icon: <FaShieldAlt />,
+    title: 'Safety Certified',
+    desc: 'All products undergo rigorous safety testing and comply with CIB (Central Insecticides Board) regulations.',
+    color: '#2E7D32',
+    bg: '#E8F5E9',
   },
   {
-    icon: FaFlask,
-    title: 'Nutrient Absorption',
-    desc: 'Chelated nutrients and biostimulants that maximize uptake efficiency across all crop types.',
-    color: '#6A1B9A',
-    gradient: 'linear-gradient(135deg, #6A1B9A, #AB47BC)',
+    icon: <FaLeaf />,
+    title: 'Eco-Friendly',
+    desc: 'Formulations designed to minimize environmental footprint while maximizing crop protection efficacy.',
+    color: '#E65100',
+    bg: '#FFF3E0',
+  },
+  {
+    icon: <FaMicroscope />,
+    title: 'Scientifically Proven',
+    desc: 'Field-tested across multiple crop varieties and Indian climatic conditions for reliable, repeatable results.',
+    color: '#7B1FA2',
     bg: '#F3E5F5',
-    stat: '3x',
-    statLabel: 'faster absorption',
   },
   {
-    icon: FaLeaf,
-    title: 'Soil Fertility',
-    desc: 'Organic and mineral-based formulas that restore and maintain long-term soil health and vitality.',
-    color: '#6D4C41',
-    gradient: 'linear-gradient(135deg, #6D4C41, #A1887F)',
-    bg: '#EFEBE9',
-    stat: '100%',
-    statLabel: 'organic-compatible',
-  },
-  {
-    icon: FaWater,
-    title: 'Sustainable Farming',
-    desc: 'Eco-friendly solutions that protect the environment while securing healthy agricultural yields.',
+    icon: <FaTractor />,
+    title: 'Easy Application',
+    desc: 'Simple dosage instructions and versatile application methods — spray, drip, or injection — for every farm setup.',
     color: '#00695C',
-    gradient: 'linear-gradient(135deg, #00695C, #26A69A)',
     bg: '#E0F2F1',
-    stat: 'Zero',
-    statLabel: 'harmful residues',
+  },
+  {
+    icon: <FaStar />,
+    title: 'Trusted by 1000+',
+    desc: 'Over a thousand farmers across India rely on Aarus Greentech products every season with outstanding results.',
+    color: '#F57C00',
+    bg: '#FFF8E1',
   },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
-};
-
 export default function BenefitsSection() {
-  const [current, setCurrent] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % benefits.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
-    <section className="benefits-section">
+    <section className="benefits-section" id="benefits">
       <div className="container">
-        {/* Header */}
         <motion.div
-          className="text-center mb-24"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <span className="benefit-tag">
-            Farmer Benefits
-          </span>
-          <h2 className="solutions-title">
-            Why Farmers <span className="span-accent">Trust Us</span>
+          <span className="section-tag">Why Aarus Greentech</span>
+          <h2 className="section-title">
+            The Aarus <span className="text-green-600">Advantage</span>
           </h2>
-          <p className="solutions-subtitle">
-            Every product is engineered with the farmer in mind — delivering measurable,
-            real-world benefits at every stage of the crop cycle.
+          <p className="section-desc">
+            Backed by science, trusted by farmers, and built for India's diverse agricultural landscape.
           </p>
         </motion.div>
 
-        {/* Benefits Grid / Autoslider */}
-        <div className="benefits-container">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid sm-grid-cols-2 lg-grid-cols-3 gap-10 benefits-grid"
-          >
-            {benefits.map((b, i) => {
-              const Icon = b.icon;
-              return (
-                <motion.div
-                  key={i}
-                  variants={itemVariants}
-                  className={`benefit-card ${i === current ? 'mobile-active' : ''}`}
-                >
-                  {/* Gradient top bar */}
-                  <div
-                    className="benefit-gradient-bar"
-                    style={{ background: b.gradient }}
-                  />
-
-                  <div className="benefit-content">
-                    {/* Icon + Stat Row */}
-                    <div className="benefit-header">
-                      <div
-                        className="benefit-icon-box"
-                        style={{ background: b.bg }}
-                      >
-                        <Icon size={36} style={{ color: b.color }} />
-                      </div>
-                      <div className="benefit-stat-box">
-                        <p
-                          className="benefit-stat-val"
-                          style={{ color: b.color }}
-                        >
-                          {b.stat}
-                        </p>
-                        <p className="benefit-stat-label">{b.statLabel}</p>
-                      </div>
-                    </div>
-
-                    <h4 className="benefit-title">
-                      {b.title}
-                    </h4>
-                    <p className="benefit-desc">{b.desc}</p>
+        <div className="benefits-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+          {benefits.map((b, i) => (
+            <motion.div
+              key={i}
+              className="benefit-card"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              style={{ width: '100%', maxWidth: '380px', margin: '0 auto' }}
+            >
+              <div className="benefit-content">
+                <div className="benefit-header">
+                  <div className="benefit-icon-box" style={{ background: b.bg, color: b.color, fontSize: '2rem' }}>
+                    {b.icon}
                   </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-          
-          {/* Mobile Dots Indicators */}
-          <div className="benefits-dots">
-            {benefits.map((_, i) => (
-              <div 
-                key={i} 
-                className={`dot ${i === current ? 'active' : ''}`} 
-                onClick={() => setCurrent(i)}
-              />
-            ))}
-          </div>
+                </div>
+                <h3 className="benefit-title">{b.title}</h3>
+                <p className="benefit-desc">{b.desc}</p>
+              </div>
+              <div className="benefit-gradient-bar" style={{ background: b.color }} />
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

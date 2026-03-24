@@ -1,58 +1,39 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { FiArrowRight, FiPhone } from 'react-icons/fi';
+import '../styles/components/CTASection.css';
 
 export default function CTASection() {
   return (
-    <section className="cta-section">
-      {/* Full width background layer */}
-      <div className="cta-full-bg" />
-
+    <section className="cta-section" id="cta">
       <div className="cta-container-inner">
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          className="cta-card"
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="cta-card"
+          transition={{ duration: 0.7 }}
         >
-          {/* Decorative Glows */}
           <div className="cta-glow-1" />
           <div className="cta-glow-2" />
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="cta-tag"
-          >
-            Ready to Transform Your Yield?
-          </motion.div>
-
-          <h2 className="cta-title">
-            Let's Grow <span>Together</span>
-            <br />
-            with Aarus Greentech
-          </h2>
-
-          <p className="cta-desc">
-            Join 1000+ satisfied farmers who have elevated their agricultural
-            productivity with our scientifically advanced crop solutions.
-          </p>
-
-          <div className="cta-btns">
-            <a
-              href="#products"
-              className="btn-cta-primary"
-            >
-              Explore Our Catalog <FiArrowRight size={28} />
-            </a>
-            <a
-              href="#contact"
-              className="btn-cta-secondary"
-            >
-              <FiPhone size={28} /> Get Technical Support
-            </a>
+          <div className="cta-content relative z-20 text-center">
+            <span className="section-tag" style={{ background: 'rgba(255,160,0,0.2)', color: '#FFC947', borderColor: 'rgba(255,160,0,0.3)' }}>Ready to Grow?</span>
+            <h2 className="section-title text-white">
+              Partner With <span style={{ color: '#FFC947' }}>Aarus Greentech</span>
+            </h2>
+            <p className="section-desc" style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '2.5rem' }}>
+              Speak to our agrochemical experts, explore our full product range,
+              or become a distributor — we're here to help you succeed every season.
+            </p>
+            <div className="cta-btns">
+              <Link to="/contact" className="btn-primary" style={{ backgroundColor: '#FFC947', color: '#000', border: 'none', padding: '1.25rem 2.5rem', fontWeight: 900 }}>
+                Get In Touch <FiArrowRight />
+              </Link>
+              <a href="tel:+919146673132" className="btn-secondary" style={{ color: '#ffffff', borderColor: 'rgba(255,255,255,0.3)', padding: '1.25rem 2.5rem' }}>
+                <FiPhone /> +91 91466 73132
+              </a>
+            </div>
           </div>
         </motion.div>
       </div>

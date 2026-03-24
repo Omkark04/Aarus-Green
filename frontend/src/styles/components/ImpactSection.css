@@ -1,0 +1,149 @@
+/* =========================================
+   IMPACT SECTION
+   ========================================= */
+.impact-section {
+  padding: 8rem 0;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 50%, #388E3C 100%);
+}
+
+.impact-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.impact-glow {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+.impact-glow-1 {
+  top: 0;
+  left: 0;
+  width: 40rem;
+  height: 40rem;
+  background: radial-gradient(circle, #A5D6A7, transparent);
+}
+
+.impact-glow-2 {
+  bottom: 0;
+  right: 0;
+  width: 50rem;
+  height: 50rem;
+  background: radial-gradient(circle, #66BB6A, transparent);
+}
+
+.impact-tag {
+  display: inline-block;
+  padding: 0.625rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-lg);
+}
+
+.impact-title {
+  font-size: var(--h2-fluid);
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 2rem;
+  line-height: 1.15;
+}
+
+.span-gold { color: var(--accent-gold); }
+
+.impact-subtitle {
+  font-size: 1.5rem;
+  color: var(--green-light);
+  max-width: 48rem;
+  margin: 0 auto;
+  line-height: 1.625;
+  opacity: 0.9;
+}
+
+/* Stat grid */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+}
+
+.stat-val {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 1rem;
+  color: var(--accent-gold);
+  text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-heading);
+}
+
+.stat-label {
+  color: var(--white);
+  font-weight: 900;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.025em;
+}
+
+.stat-desc {
+  color: var(--green-light);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .stat-card    { padding: 1.5rem; min-height: 200px; }
+  .stat-val     { font-size: 2rem; }
+  .stat-label   { font-size: 1rem; }
+  .stat-desc    { font-size: 0.75rem; }
+}
+
+/* Impact footer badges */
+.impact-footer {
+  text-align: center;
+  margin-top: 5rem;
+}
+
+.impact-badge-row {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1.25rem 2.5rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  box-shadow: var(--shadow-2xl);
+}
+
+.impact-footer-badge {
+  color: var(--green-light);
+  font-size: 1.125rem;
+  font-weight: 900;
+  letter-spacing: 0.025em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

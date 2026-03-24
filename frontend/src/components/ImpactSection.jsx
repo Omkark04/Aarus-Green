@@ -1,99 +1,55 @@
-import { useRef, useState, useEffect } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { FiGlobe, FiUsers, FiAward, FiShield } from 'react-icons/fi';
+import '../styles/components/ImpactSection.css';
+
 
 const stats = [
-  { value: 19, suffix: '+', label: 'Products', desc: 'Premium agrochemical products' },
-  { value: 1000, suffix: '+', label: 'Farmers', desc: 'Across India trust us' },
-  { value: 10, suffix: '+', label: 'Crop Solutions', desc: 'For diverse crop types' },
-  { value: 4, suffix: '', label: 'Product Lines', desc: 'Complete crop care range' },
+  { val: '19+', label: 'Premium Products', desc: 'Tested & proven formulas' },
+  { val: '1000+', label: 'Farmers Served', desc: 'Trusted across regions' },
+  { val: '5+', label: 'States Covered', desc: 'Growing national presence' },
+  { val: '100%', label: 'Quality Assured', desc: 'ISI Certified manufacturing' },
 ];
 
-function CountUp({ target, suffix, inView }) {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    if (!inView) return;
-    let start = 0;
-    const duration = 2000;
-    const step = Math.ceil(target / (duration / 16));
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(start);
-      }
-    }, 16);
-    return () => clearInterval(timer);
-  }, [inView, target]);
-  return <>{count}{suffix}</>;
-}
-
 export default function ImpactSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
   return (
-    <section className="impact-section">
-      {/* Background image overlay */}
-      <div className="impact-bg-overlay" style={{ backgroundImage: "url('/hero-bg.png')" }} />
-
-      {/* Decorative glows */}
+    <section className="impact-section" id="impact">
+          <div className="impact-bg-overlay" style={{ backgroundImage: "url('/placeholder.svg')", opacity: 0.2 }} />
       <div className="impact-glow impact-glow-1" />
       <div className="impact-glow impact-glow-2" />
-
-      <div className="container relative z-10">
-        {/* Header */}
+      <div className="container" style={{ position: 'relative', zIndex: 10 }}>
         <motion.div
-          className="text-center mb-24"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <span className="impact-tag">
-            Our National Impact
-          </span>
-          <h2 className="impact-title">
-            Serving Farmers <span className="span-gold">Across India</span>
+          <span className="section-tag">Our Impact</span>
+          <h2 className="section-title text-white">
+            Making a Real <span className="span-gold" style={{ color: '#FFC947' }}>Difference</span>
           </h2>
-          <p className="impact-subtitle">
-            From Gujarat to across the nation — Aarus Greentech products are changing
-            the way India farms, one field at a time.
+          <p className="section-desc text-white-85">
+            Numbers that reflect our commitment to Indian agriculture and the farming community.
           </p>
         </motion.div>
 
-        {/* Stats Grid */}
-        <div ref={ref} className="stat-grid">
-          {stats.map((stat, i) => (
+        <div className="stat-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', maxWidth: '100%', gap: '1.5rem' }}>
+          {stats.map((s, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.12, duration: 0.6 }}
               className="stat-card"
+              initial={{ opacity: 0, scale: 0.85 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.12, duration: 0.5 }}
+              style={{ textAlign: 'center', padding: '2rem', background: 'rgba(255,255,255,0.1)', backdropFilter: 'blur(10px)', borderRadius: '1rem', border: '1px solid rgba(255,255,255,0.2)' }}
             >
-              <p className="stat-val">
-                <CountUp target={stat.value} suffix={stat.suffix} inView={isInView} />
-              </p>
-              <p className="stat-label">
-                {stat.label}
-              </p>
-              <p className="stat-desc">{stat.desc}</p>
+              <div className="stat-val">{s.val}</div>
+              <div className="stat-label">{s.label}</div>
+              <div className="stat-desc">{s.desc}</div>
             </motion.div>
           ))}
         </div>
-
-        {/* Bottom text badges */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-          className="impact-footer"
-        >
-        </motion.div>
       </div>
     </section>
   );
