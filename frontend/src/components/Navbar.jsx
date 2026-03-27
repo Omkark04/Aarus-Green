@@ -9,8 +9,8 @@ import GoogleTranslate from './GoogleTranslate';
 const navLinks = [
   { name: 'Home', to: '/' },
   { name: 'About', to: '/about' },
-  { 
-    name: 'Products', 
+  {
+    name: 'Products',
     to: '/products',
     dropdown: [
       { name: 'Plant Growth Promoter', to: '/products?category=Plant%20Growth%20Promoter' },
@@ -38,6 +38,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [openMobileDropdown, setOpenMobileDropdown] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -71,9 +72,8 @@ export default function Navbar() {
                 {link.dropdown ? (
                   <Link
                     to={link.to}
-                    className={`nav-link flex items-center gap-1 cursor-pointer ${
-                      location.pathname.startsWith(link.to) ? 'text-green-600 font-bold' : 'text-gray-800 font-semibold'
-                    }`}
+                    className={`nav-link flex items-center gap-1 cursor-pointer ${location.pathname.startsWith(link.to) ? 'text-green-600 font-bold' : 'text-gray-800 font-semibold'
+                      }`}
                   >
                     {link.name} <FiChevronDown />
                   </Link>
@@ -108,7 +108,7 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <GoogleTranslate />
+          <GoogleTranslate style="color: black;" id="google_translate_desktop" />
         </div>
 
         {/* Mobile Toggle */}
@@ -134,30 +134,67 @@ export default function Navbar() {
             <div className="flex flex-col py-2">
               {navLinks.map((link) => (
                 <div key={link.name} className="flex flex-col">
-                  <Link
-                    to={link.to}
-                    onClick={() => !link.dropdown && setIsMenuOpen(false)}
-                    className="nav-mobile-link text-gray-800"
-                  >
-                    {link.name}
-                  </Link>
-                  {link.dropdown && (
-                    <div className="bg-gray-50 py-2">
-                      {link.dropdown.map((sub) => (
-                        <Link
-                          key={sub.name}
-                          to={sub.to}
-                          onClick={() => setIsMenuOpen(false)}
-                          className="nav-mobile-link text-gray-600 block pl-8"
-                          style={{ fontSize: '0.875rem' }}
-                        >
-                          {sub.name}
-                        </Link>
-                      ))}
-                    </div>
+                  {link.dropdown ? (
+                    <>
+                      <div
+                        className="nav-mobile-link flex justify-between items-center text-gray-800 cursor-pointer"
+                        onClick={() => setOpenMobileDropdown(openMobileDropdown === link.name ? null : link.name)}
+                      >
+                        <span className="font-semibold">{link.name}</span>
+                        <FiChevronDown 
+                          className={`transition-transform duration-300 ${openMobileDropdown === link.name ? 'rotate-180' : ''}`} 
+                        />
+                      </div>
+                      <AnimatePresence>
+                        {openMobileDropdown === link.name && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="bg-gray-50 overflow-hidden"
+                          >
+                            <div className="py-2">
+                              {/* Option to navigate to main page if there's no equivalent inside */}
+                              <Link
+                                to={link.to}
+                                onClick={() => setIsMenuOpen(false)}
+                                className="nav-mobile-link text-gray-800 font-semibold block pl-8"
+                                style={{ fontSize: '0.9rem' }}
+                              >
+                                All {link.name}
+                              </Link>
+                              
+                              {link.dropdown.map((sub) => (
+                                <Link
+                                  key={sub.name}
+                                  to={sub.to}
+                                  onClick={() => setIsMenuOpen(false)}
+                                  className="nav-mobile-link text-gray-600 block pl-8"
+                                  style={{ fontSize: '0.875rem' }}
+                                >
+                                  {sub.name}
+                                </Link>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </>
+                  ) : (
+                    <Link
+                      to={link.to}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="nav-mobile-link text-gray-800 font-semibold"
+                    >
+                      {link.name}
+                    </Link>
                   )}
                 </div>
               ))}
+              <div className="px-5 py-4 flex items-center border-t border-gray-100 mt-2">
+                <GoogleTranslate id="google_translate_mobile" isMobile={true} />
+              </div>
             </div>
           </motion.div>
         )}

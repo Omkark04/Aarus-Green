@@ -17,6 +17,36 @@
   padding: 0.25rem 0;
 }
 
+/* =========================================
+   GOOGLE TRANSLATE STYLES OVERRIDE
+   ========================================= */
+.goog-te-combo {
+  background-color: var(--green-light) !important;
+  color: var(--green-dark) !important;
+  border: 1px solid var(--green-primary) !important;
+  border-radius: 0.5rem !important;
+  padding: 0.35rem 0.5rem !important;
+  font-family: inherit !important;
+  font-weight: 600 !important;
+  outline: none !important;
+  cursor: pointer;
+}
+
+.goog-te-gadget {
+  color: transparent !important; /* Hides the "Powered by Google" text */
+  font-size: 0 !important;
+}
+
+.goog-te-gadget img {
+  display: none !important; /* Hides Google logo */
+}
+
+.goog-te-gadget .goog-te-combo {
+  color: var(--green-dark) !important;
+  font-size: 1rem !important;
+}
+
+
 .nav-transparent {
   background-color: transparent;
   padding: 0.5rem 0;
