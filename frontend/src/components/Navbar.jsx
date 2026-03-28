@@ -111,14 +111,17 @@ export default function Navbar() {
           <GoogleTranslate style="color: black;" id="google_translate_desktop" />
         </div>
 
-        {/* Mobile Toggle */}
-        <button
-          className="hidden-show-md p-2 rounded-lg text-gray-800"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {isMenuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
-        </button>
+        {/* Mobile Toggle & Translator */}
+        <div className="hidden-show-md flex items-center gap-3">
+          <GoogleTranslate id="google_translate_mobile" isMobile={true} />
+          <button
+            className="p-2 rounded-lg text-gray-800"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -192,9 +195,6 @@ export default function Navbar() {
                   )}
                 </div>
               ))}
-              <div className="px-5 py-4 flex items-center border-t border-gray-100 mt-2">
-                <GoogleTranslate id="google_translate_mobile" isMobile={true} />
-              </div>
             </div>
           </motion.div>
         )}
