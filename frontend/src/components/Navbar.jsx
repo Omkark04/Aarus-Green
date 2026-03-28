@@ -19,9 +19,6 @@ const navLinks = [
       { name: 'Soil Health', to: '/products?category=Soil%20Health' },
     ]
   },
-  { name: 'Blog', to: '/blog' },
-  { name: 'Gallery', to: '/gallery' },
-  { name: 'Privacy Policy', to: '/privacy-policy' },
   {
     name: 'Contact Us',
     to: '/contact',
@@ -30,6 +27,8 @@ const navLinks = [
       { name: 'Distributor Inquiry', to: '/distributor-enquiry' },
     ],
   },
+  { name: 'Blog', to: '/blog' },
+  { name: 'Gallery', to: '/gallery' },
 ];
 
 import logo from '../assets/Logo.png';
@@ -112,7 +111,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Toggle & Translator */}
-        <div className="hidden-show-md flex items-center gap-3">
+        <div className="md-hidden flex items-center gap-3">
           <GoogleTranslate id="google_translate_mobile" isMobile={true} />
           <button
             className="p-2 rounded-lg text-gray-800"
