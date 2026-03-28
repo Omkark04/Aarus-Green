@@ -6,6 +6,7 @@ import '../styles/pages/About.css';
 
 import { FaLeaf, FaFlask, FaHandshake, FaSeedling, FaGlobe, FaCertificate } from 'react-icons/fa';
 import founderImg from '../assets/Owner/Sunil Pawar.jpeg';
+import aboutHeroBg from '../assets/about-bg.jpeg';
 
 const values = [
   { icon: <FaLeaf />, title: 'Farmer First', desc: 'Every product is built around the practical needs of the Indian farmer.' },
@@ -29,7 +30,7 @@ export default function About() {
     <div className="about-page">
       {/* Hero Section */}
       <section className="page-hero">
-        <div className="page-hero-bg" style={{ backgroundImage: "url('/hero-about.png')" }} />
+        <div className="page-hero-bg" style={{ backgroundImage: `url(${aboutHeroBg})` }} />
         <div className="container page-hero-content">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
