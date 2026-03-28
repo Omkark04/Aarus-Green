@@ -6,6 +6,7 @@ import {
 } from 'react-icons/fi';
 import '../styles/pages/SubPages.css';
 import '../styles/pages/Contact.css';
+import SEO from '../components/SEO';
 
 export default function Contact() {
   const handleSubmit = (e) => {
@@ -15,6 +16,12 @@ export default function Contact() {
 
   return (
     <div className="contact-page">
+      <SEO 
+        title="Contact Us"
+        description="Reach out to Aarus Greentech LLP in Ankleshwar, Gujarat for product support, farmer advice, or dealership opportunities. We're here to help you grow."
+        keywords="contact Aarus Greentech, agrochemical dealer Gujarat, farmer support Ankleshwar, pesticide company contact"
+        canonical="/contact"
+      />
       {/* Hero Section */}
       <section className="page-hero">
         <div className="page-hero-bg" style={{ backgroundImage: "url('/hero-contact.png')" }} />

@@ -7,6 +7,7 @@ import '../styles/pages/About.css';
 import { FaLeaf, FaFlask, FaHandshake, FaSeedling, FaGlobe, FaCertificate } from 'react-icons/fa';
 import founderImg from '../assets/Owner/Sunil Pawar.jpeg';
 import aboutHeroBg from '../assets/about-bg.jpeg';
+import SEO from '../components/SEO';
 
 const values = [
   { icon: <FaLeaf />, title: 'Farmer First', desc: 'Every product is built around the practical needs of the Indian farmer.' },
@@ -28,6 +29,12 @@ const milestones = [
 export default function About() {
   return (
     <div className="about-page">
+      <SEO 
+        title="Our Story"
+        description="Learn about Aarus Greentech LLP's journey from 2020. Based in Ankleshwar, Gujarat, we specialize in high-performance agrochemicals and crop protection science."
+        keywords="Aarus Greentech story, Sunil Pawar founder, agriculture milestones Gujarat, agrochemical R&D India"
+        canonical="/about"
+      />
       {/* Hero Section */}
       <section className="page-hero">
         <div className="page-hero-bg" style={{ backgroundImage: `url(${aboutHeroBg})` }} />

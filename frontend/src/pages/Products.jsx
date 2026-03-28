@@ -6,6 +6,7 @@ import { FiArrowRight, FiSearch, FiChevronRight, FiFilter, FiSmile } from 'react
 import '../styles/pages/SubPages.css';
 import '../styles/pages/Products.css';
 import '../styles/components/FeaturedProducts.css';
+import SEO from '../components/SEO';
 
 const allCategories = ['All', ...productCategories.map(c => c.title)];
 
@@ -36,6 +37,12 @@ export default function Products() {
 
   return (
     <div className="products-page">
+      <SEO 
+        title="Agrochemical Catalog"
+        description="Browse our comprehensive range of plant growth promoters, crop protection, and nutrient solutions. Protect your harvest with Aarus Greentech's science-backed formulas."
+        keywords="plant growth promoters, crop protection products, nutrient solutions for plants, soil health chemicals, Aarus products catalog"
+        canonical="/products"
+      />
       {/* Hero Section */}
       <section className="page-hero">
         <div className="page-hero-bg" style={{ backgroundImage: "url('/hero-products.png')" }} />
